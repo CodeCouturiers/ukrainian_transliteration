@@ -32,7 +32,7 @@ def transliterate(text):
         'Щ': 'Shch', 'щ': 'shch',
         'Ю': 'Yu', 'ю': 'iu',
         'Я': 'Ya', 'я': 'ia',
-        'ь': '', ''': ''
+        'ь': '', "'": ''
     }
 
     result = []
@@ -58,6 +58,7 @@ def transliterate(text):
     result = result.replace('zgh', 'zgh')
 
     return result
+
 
 # Пример использования
 ukrainian_text = "Згорани Борщагівка Гоща"
