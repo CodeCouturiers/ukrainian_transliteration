@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 def transliterate(text):
     translit_table = {
         'А': 'A', 'а': 'a',
