@@ -11,7 +11,7 @@ def transliterate(text):
         'Ж': 'Zh', 'ж': 'zh',
         'З': 'Z', 'з': 'z',
         'И': 'Y', 'и': 'y',
-        'І': 'I', 'і': 'i',
+        'І': 'І', 'і': 'і',
         'Ї': 'Yi', 'ї': 'i',
         'Й': 'Y', 'й': 'i',
         'К': 'K', 'к': 'k',
@@ -38,7 +38,7 @@ def transliterate(text):
     result = []
     i = 0
     while i < len(text):
-        if text[i:i+2].lower() == 'зг':
+        if text[i:i + 2].lower() == 'зг':
             result.append('Zgh' if text[i].isupper() else 'zgh')
             i += 2
         elif i == 0 and text[i] == 'Ї':
@@ -48,7 +48,7 @@ def transliterate(text):
             result.append('yi')
             i += 1
         elif text[i] in translit_table:
-            if text[i] in 'ЄЇЙЮЯ' and i > 0 and text[i-1].isalpha():
+            if text[i] in 'ЄЇЙЮЯ' and i > 0 and text[i - 1].isalpha():
                 result.append(translit_table[text[i]].lower())
             else:
                 result.append(translit_table[text[i]])
@@ -58,6 +58,7 @@ def transliterate(text):
             i += 1
 
     return ''.join(result)
+
 
 # Примеры использования
 examples = [
