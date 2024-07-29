@@ -36,31 +36,65 @@ def transliterate(text):
     }
 
     result = []
-    for char in text:
-        if char in translit_table:
-            if char == 'Є' and result and result[-1].isalpha():
-                result.append('ie')
-            elif char == 'Ї' and result and result[-1].isalpha():
-                result.append('i')
-            elif char == 'Й' and result and result[-1].isalpha():
-                result.append('i')
-            elif char == 'Ю' and result and result[-1].isalpha():
-                result.append('iu')
-            elif char == 'Я' and result and result[-1].isalpha():
-                result.append('ia')
+    i = 0
+    while i < len(text):
+        if text[i:i+2].lower() == 'зг':
+            result.append('Zgh' if text[i].isupper() else 'zgh')
+            i += 2
+        elif i == 0 and text[i] == 'Ї':
+            result.append('Yi')
+            i += 1
+        elif i == 0 and text[i] == 'ї':
+            result.append('yi')
+            i += 1
+        elif text[i] in translit_table:
+            if text[i] in 'ЄЇЙЮЯ' and i > 0 and text[i-1].isalpha():
+                result.append(translit_table[text[i]].lower())
             else:
-                result.append(translit_table[char])
+                result.append(translit_table[text[i]])
+            i += 1
         else:
-            result.append(char)
+            result.append(text[i])
+            i += 1
 
-    # Особый случай для 'зг'
-    result = ''.join(result)
-    result = result.replace('zgh', 'zgh')
+    return ''.join(result)
 
-    return result
+# Примеры использования
+examples = [
+    "Алушта Андрій",
+    "Борщагівка Борисенко",
+    "Вінниця Володимир",
+    "Гадяч Богдан Згурський",
+    "Ґалаґан Ґорґани",
+    "Донецьк Дмитро",
+    "Рівне Олег Есмань",
+    "Єнакієве Гаєвич Короп'є",
+    "Житомир Жанна Жежелів",
+    "Закарпаття Казимирчук",
+    "Медвин Михайленко",
+    "Іванків Іващенко",
+    "Їжакевич Кадиївка Мар'їне",
+    "Йосипівка Стрий Олексій",
+    "Київ Коваленко",
+    "Лебедин Леонід",
+    "Миколаїв Маринич",
+    "Ніжин Наталія",
+    "Одеса Онищенко",
+    "Полтава Петро",
+    "Решетилівка Рибчинський",
+    "Суми Соломія",
+    "Тернопіль Троць",
+    "Ужгород Уляна",
+    "Фастів Філіпчук",
+    "Харків Христина",
+    "Біла Церква Стеценко",
+    "Чернівці Шевченко",
+    "Шостка Кишеньки",
+    "Щербухи Гоща Гаращенко",
+    "Юрій Корюківка",
+    "Яготин Ярошенко Костянтин Знам'янка Феодосія"
+]
 
-
-# Пример использования
-ukrainian_text = "Згорани Борщагівка Гоща"
-transliterated = transliterate(ukrainian_text)
-print(transliterated)
+for example in examples:
+    transliterated = transliterate(example)
+    print(f"{example} -> {transliterated}")
